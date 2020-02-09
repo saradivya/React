@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="1" failures="0" time="5.698">
+  <testsuite name="Increment action" errors="0" failures="0" skipped="0" timestamp="2020-02-06T12:27:59" time="3.239" tests="1">
+    <testcase classname="Increment action should return INCREMENT" name="Increment action should return INCREMENT" time="0.007">
+    </testcase>
+  </testsuite>
+</testsuites>

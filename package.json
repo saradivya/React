@@ -20,26 +20,76 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --open",
+    "server": "node app/server/index.js",
     "lint": "eslint --debug app/",
     "fixlint": "eslint --debug app/ --fix",
-    "prettier": "prettier --write app/client/**/**/*.js*"
+    "prettier": "prettier --write app/client/**/**/*.js*",
+    "test": "jest --collectCoverage --watchAll",
+    "test:ci": "jest --testResultsProcessor ./node_modules/jest-junit"
   },
   "husky": {
-  "hooks": {
-"pre-commit": "lint-staged"
-   }
-},
-"lint-staged": {
-"app/**/*.{js,jsx}": ["eslint", "pretty-quick — staged", "git add"]
-},
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "app/**/*.{js,jsx}": [
+      "eslint",
+      "pretty-quick — staged",
+      "git add"
+    ]
+  },
+  "jest": {
+    "clearMocks": true,
+    "collectCoverageFrom": [
+      "app/**/*.{js,jsx,mjs}"
+    ],
+    "coverageDirectory": "coverage",
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "jsx"
+    ],
+    "setupFiles": [
+      "<rootDir>/enzyme.setup.js"
+    ],
+    "testEnvironment": "jsdom",
+    "testMatch": [
+      "**/__tests__/**/*.js?(x)",
+      "**/?(*.)+(spec|test).js?(x)"
+    ],
+    "testPathIgnorePatterns": [
+      "\\\\node_modules\\\\"
+    ],
+    "testURL": "http://localhost",
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
+    "verbose": false,
+    "coverageReporters": [
+      "json",
+      "html",
+      "text"
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "connect-redis": "^4.0.4",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "express": "latest",
+    "http-proxy-middleware": "latest",
     "husky": "^4.2.1",
+    "jest-junit": "^10.0.0",
     "lint-staged": "^10.0.7",
+    "node-sass": "^4.13.1",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "react-test-renderer": "^16.12.0",
+    "redis": "^2.8.0",
+    "yarn": "^1.22.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -48,7 +98,9 @@
     "@babel/preset-react": "^7.8.3",
     "@babel/runtime": "^7.8.4",
     "@material-ui/core": "^4.9.1",
+    "axios": "^0.19.2",
     "babel-eslint": "^10.0.3",
+    "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.4.2",
     "eslint": "^6.8.0",
@@ -62,8 +114,10 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "express-session": "^1.17.0",
     "history": "latest",
     "html-webpack-plugin": "^3.2.0",
+    "jest": "^25.1.0",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
     "prop-types": "^15.7.2",
@@ -74,6 +128,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.1.3",
+    "sass-loader": "^8.0.2",
     "style-loader": "^1.1.3",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",

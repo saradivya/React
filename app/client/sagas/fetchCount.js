@@ -1,17 +1,20 @@
-import * as actions from '../utills/actions';
-import { put, takeLatest, all } from 'redux-saga/effects';
+import { call, put, takeLatest, all } from 'redux-saga/effects';
+import callFetchApi from '../../services/api';
 
-function* countSaga(action) {
-  yield put({
-    type: action.type,
-    payload: action.payload,
-  });
+export default  function* countSaga() {
+  const api = '/api/posts';
+  const response = yield call(callFetchApi, api, {}, 'GET');
+  console.log(response);
 }
 
-function* saga() {
-  yield takeLatest(actions.INCREMENT, countSaga);
-}
+// function* saga() {
+//   console.log('counting');
+//   console.log('data');
+//
+//
+// }
 
-export function* incSaga() {
-  yield all([saga]);
-}
+// export function* incSaga() {
+//   console.log('initial');
+//   yield all([saga]);
+// }

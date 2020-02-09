@@ -1,7 +1,7 @@
-import { all } from 'redux-saga/effects';
-
-import { incSaga } from './fetchCount';
+import {  takeLatest } from 'redux-saga/effects';
+import * as actions from '../utills/actions';
+import countSaga from './fetchCount';
 
 export default function* rootSaga() {
-  yield all([incSaga]);
+  yield takeLatest(actions.INCREMENT, countSaga);
 }
